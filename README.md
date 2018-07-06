@@ -5,7 +5,7 @@ Machine learning as well as NLP (Natural Language Processing) approaches are use
 
 
 ## How to run program
-open terminal
-python training.py
-python chat.py
+open terminal__
+python training.py__
+python chat.py__
 open url in the browser
