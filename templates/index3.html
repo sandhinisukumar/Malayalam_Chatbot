@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script><link rel="icon" href="favicon.ico" type="image/ico" sizes="16x16"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+    <style type="text/css"> 
+      body 
+      { 
+        background: linear-gradient(to bottom, #609691 0%,#00886d 9%,#0c324a 52%,#1a253c 100%);
+        height: 655px;   /*<!--  Background color of web interface -->*/
+      }
+    </style> 
+  </head>
+  <body>
+    <h1></h1>
+    <h3></h3>
+    <div
+      <div id="chatbox">
+        <p class="botText"><span>നമസ്കാരം.... ഞാൻ ഒരു ടൂറിസ്റ്റ് ബോട്ട് ആണ്.!</span></p> <!-- Text in the Chatbox -->
+	<p class="botText"><span>ഞാൻ നിങ്ങളെ എങ്ങനെയാണ് സഹായിക്കേണ്ടത്?</span></p>
+
+       </div>
+
+      <div id="userInput">
+             <input id="textInput" type="text" name="msg" list= 'names'placeholder="എനിക്ക് നിങ്ങളെ എങ്ങനെ സഹായിക്കാനാകും" autocomplete="on">
+       
+        <span class="textInput">
+        <button class="btn btn-info" type="submit" id="buttonInput">  <span class="glyphicon glyphicon-send"></span></button>
+                                    </span>
+
+<!--        	<input id="buttonInput" type="submit" value="നിര്‍ത്തുക " onclick="window.location.href='/stop/'">
+ --></form>
+      </div>
+      
+      <script>
+        function getBotResponse() {
+          var rawText = $("#textInput").val(); 
+          // Read the input from the user
+          var userHtml = '<p class="userText"><span>' + rawText + '</span></p>';
+          $("#textInput").val("");
+          $("#chatbox").append(userHtml);
+          // Append to the user input to the chatbox
+          document.getElementById('userInput').scrollIntoView({block: 'start', behavior: 'smooth'});
+          $.get("/get", { msg: rawText }).done(function(data) {
+            var botHtml = '<p class="botText"><span>' + data + '</span></p>';
+            $("#chatbox").append(botHtml); 
+            // Append the bottext to chatbox based on the userInput
+            document.getElementById('userInput').scrollIntoView({block: 'start', behavior: 'smooth'});
+            $("#chatbox").stop().animate({ scrollTop: $("#chatbox")[0].scrollHeight}, 1000);
+          });
+        }
+        // The click function of buttonInput
+        $("#textInput").keypress(function(e) {
+            if(e.which == 13) {
+                getBotResponse();
+            }
+        });
+        $("#buttonInput").click(function() {
+          getBotResponse();
+        })
+
+      </script>
+
+    </div>
+  </body>
+</html>
